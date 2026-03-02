@@ -41,7 +41,7 @@ services:
         value: false
 
       - key: APP_URL
-        value: https://cocooking-api.onrender.com   # ← Mettre à jour après le 1er déploiement
+        value: https://cook-api-duur.onrender.com   # ← Mettre à jour après le 1er déploiement
 
       - key: LOG_CHANNEL
         value: stderr

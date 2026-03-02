@@ -9,7 +9,7 @@ return [
     | Autoriser le frontend (Vercel / Netlify / GitHub Pages) à appeler l'API
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+    'paths' => ['*', 'sanctum/csrf-cookie'],
 
     'allowed_methods' => ['*'],
 

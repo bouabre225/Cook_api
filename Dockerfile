@@ -4,7 +4,7 @@
 # Plateforme : Render.com (Docker runtime)
 # ============================================================
 
-FROM php:8.3-fpm-alpine
+FROM php:8.4-fpm-alpine
 
 # ---- Variables de build ----
 ARG APP_ENV=production

@@ -14,10 +14,6 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-         // Enregistrement de l'alias pour pouvoir l'utiliser dans les routes
-        $middleware->alias([
-            'admin.key' => AdminApiKey::class,
-        ]);
 
         // CORS – autoriser le frontend à appeler l'API
         $middleware->api(prepend: [

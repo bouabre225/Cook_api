@@ -25,7 +25,6 @@ Route::post('responses', [SurveyResponseController::class, 'store'])
 // ⚠️  La route export/csv DOIT être déclarée AVANT responses/{id}
 //     sinon Laravel interpréterait "export" comme un {id}.
 // -----------------------------------------------------------------------
-Route::middleware(AdminApiKey::class)->group(function () {
 
     // Export CSV – déclaré en premier pour éviter le conflit avec {id}
     Route::get('responses/export/csv', [SurveyResponseController::class, 'exportCsv'])
@@ -46,4 +45,3 @@ Route::middleware(AdminApiKey::class)->group(function () {
     // Statistiques agrégées
     Route::get('stats', [SurveyResponseController::class, 'stats'])
         ->name('stats');
-});

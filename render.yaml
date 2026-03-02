@@ -1,0 +1,69 @@
+# ============================================================
+# render.yaml – Co-Cooking API
+# Blueprint Render.com : crée automatiquement
+#   - La base PostgreSQL gratuite
+#   - Le Web Service Docker
+#
+# Utilisation :
+#   Render Dashboard → New → Blueprint → connecter ce repo
+# ============================================================
+
+services:
+  - type: web
+    name: cocooking-api
+    plan: free
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+
+    # Render lance cette commande après chaque déploiement réussi
+    # Elle migre la base sans jamais bloquer le démarrage du container
+    preDeployCommand: "php artisan migrate --force"
+
+    healthCheckPath: /up
+
+    envVars:
+      # ---- Base de données (connexion automatique) ----
+      - key: DATABASE_URL
+        value: postgresql://postgres:[YnwuLajUuEG9]@db.nrrsnaumotzjmxzoebpt.supabase.co:5432/postgres
+
+      - key: DB_CONNECTION
+        value: pgsql
+
+      # ---- Laravel ----
+      - key: APP_KEY
+        generateValue: true        # Render génère une clé sécurisée automatiquement
+
+      - key: APP_ENV
+        value: production
+
+      - key: APP_DEBUG
+        value: false
+
+      - key: APP_URL
+        value: https://cocooking-api.onrender.com   # ← Mettre à jour après le 1er déploiement
+
+      - key: LOG_CHANNEL
+        value: stderr
+
+      - key: LOG_LEVEL
+        value: error
+
+      # ---- Cache / Session ----
+      - key: CACHE_DRIVER
+        value: file
+
+      - key: SESSION_DRIVER
+        value: file
+
+      - key: QUEUE_CONNECTION
+        value: sync
+
+      # ---- CORS : URL de votre frontend Netlify ----
+      - key: FRONTEND_URL
+        value: https://formcook.netlify.app      # ← REMPLACER avant déploiement
+
+      # ---- Clé admin dashboard ----
+      # Générez une clé forte : openssl rand -hex 32
+      - key: ADMIN_API_KEY
+        value: admin          # ← REMPLACER avant déploiement
